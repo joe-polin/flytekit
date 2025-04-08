@@ -32,3 +32,10 @@ def test_task_resources_error():
         @task(resources=Resources(cpu=("1", "2"), mem=(1024, 2048)), gpu=1, limits=Resources(cpu=1))
         def my_task():
             pass
+
+def test_task_extra_arguments_error():
+    msg = "`Unrecognized argument(s) for task:"
+    with pytest.raises(ValueError, match=msg):
+        @task(template='template_is_not_an_argument')
+        def my_task():
+            pass
